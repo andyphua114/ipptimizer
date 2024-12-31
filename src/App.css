@@ -5,6 +5,12 @@
   text-align: center;
 }
 
+.container {
+    display: flex;
+    align-items: center; /* Align vertically */
+    gap: 10px; /* Space between items */
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
