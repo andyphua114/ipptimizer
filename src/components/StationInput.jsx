@@ -5,12 +5,12 @@ function StationInput({ name, type, setType }) {
   if (name === "run") {
     return (
       <>
-        <Button name={name} action="minus" type={type} setType={setType}>
-          -10 sec
-        </Button>
-        <Dropdown name={name} type={type} setType={setType} />
         <Button name={name} action="add" type={type} setType={setType}>
           +10 sec
+        </Button>
+        <Dropdown name={name} type={type} setType={setType} />
+        <Button name={name} action="minus" type={type} setType={setType}>
+          -10 sec
         </Button>
       </>
     );

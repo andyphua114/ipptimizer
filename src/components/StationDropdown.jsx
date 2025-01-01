@@ -1,7 +1,7 @@
 import React from "react";
 import { DataContext } from "../App";
 
-function Dropdown({ name, type, setType }) {
+function StationDropdown({ name, type, setType }) {
   const data = React.useContext(DataContext);
 
   function handleSelect(event, setType) {
@@ -28,4 +28,4 @@ function Dropdown({ name, type, setType }) {
   );
 }
 
-export default Dropdown;
+export default StationDropdown;

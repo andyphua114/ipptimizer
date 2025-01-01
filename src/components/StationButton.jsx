@@ -1,7 +1,7 @@
 import React from "react";
 import { DataContext } from "../App";
 
-function Button({ name, action, type, setType, children }) {
+function StationButton({ name, action, type, setType, children }) {
   const data = React.useContext(DataContext);
 
   function handleAddMinus(action) {
@@ -33,4 +33,4 @@ function Button({ name, action, type, setType, children }) {
   );
 }
 
-export default Button;
+export default StationButton;
