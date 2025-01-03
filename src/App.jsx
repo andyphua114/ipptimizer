@@ -4,6 +4,11 @@ import "./App.css";
 import StationInput from "./components/StationInput";
 import Dropdown from "./components/Dropdown";
 import Footer from "./components/Footer";
+import Card from "./components/Card";
+
+import { findNext } from "./utils/helper";
+import { findNextTiming } from "./utils/helper";
+import { calculateTimeDifference } from "./utils/helper";
 
 export const DataContext = React.createContext();
 export const ScoreContext = React.createContext();
@@ -16,6 +21,10 @@ function App() {
   const [pushupScore, setPushupScore] = React.useState(20);
   const [situpScore, setSitupScore] = React.useState(20);
   const [runScore, setRunScore] = React.useState(34);
+
+  const [toNextPushup, setToNextPushup] = React.useState(0);
+  const [toNextSitup, setToNextSitup] = React.useState(0);
+  const [toNextRun, setToNextRun] = React.useState(0);
 
   const [age, setAge] = React.useState(30);
   const [serviceStatus, setServiceStatus] = React.useState("NSman");
@@ -75,6 +84,78 @@ function App() {
       gender === "Male"
         ? setRunScore(data["male_run"][age_cat][run])
         : setRunScore(data["female_run"][age_cat][run]);
+
+      gender === "Male"
+        ? data["male_pushup"][age_cat][pushup] === 25
+          ? setToNextPushup(0)
+          : setToNextPushup(
+              findNext(data["male_pushup"][age_cat])[
+                data["male_pushup"][age_cat][pushup] + 1
+              ]
+                ? findNext(data["male_pushup"][age_cat])[
+                    data["male_pushup"][age_cat][pushup] + 1
+                  ]
+                : findNext(data["male_pushup"][age_cat])[
+                    data["male_pushup"][age_cat][pushup] + 2
+                  ] - pushup
+            )
+        : data["female_pushup"][age_cat][pushup] === 25
+        ? setToNextPushup(0)
+        : setToNextPushup(
+            findNext(data["female_pushup"][age_cat])[
+              data["female_pushup"][age_cat][pushup] + 1
+            ] - pushup
+          );
+
+      gender === "Male"
+        ? data["male_situp"][age_cat][situp] === 25
+          ? setToNextSitup(0)
+          : setToNextSitup(
+              findNext(data["male_situp"][age_cat])[
+                data["male_situp"][age_cat][situp] + 1
+              ] - situp
+            )
+        : data["female_situp"][age_cat][situp] === 25
+        ? setToNextSitup(0)
+        : setToNextSitup(
+            findNext(data["female_situp"][age_cat])[
+              data["female_situp"][age_cat][situp] + 1
+            ] - situp
+          );
+
+      gender === "Male"
+        ? data["male_run"][age_cat][run] === 50
+          ? setToNextRun(calculateTimeDifference("0:00", "0:00"))
+          : setToNextRun(
+              calculateTimeDifference(
+                findNextTiming(data["male_run"][age_cat])[
+                  data["male_run"][age_cat][run] + 1
+                ]
+                  ? findNextTiming(data["male_run"][age_cat])[
+                      data["male_run"][age_cat][run] + 1
+                    ]
+                  : findNextTiming(data["male_run"][age_cat])[
+                      data["male_run"][age_cat][run] + 2
+                    ],
+                run
+              )
+            )
+        : data["female_run"][age_cat][run] === 50
+        ? setToNextRun(calculateTimeDifference("0:00", "0:00"))
+        : setToNextRun(
+            calculateTimeDifference(
+              findNextTiming(data["female_run"][age_cat])[
+                data["female_run"][age_cat][run] + 1
+              ]
+                ? findNextTiming(data["female_run"][age_cat])[
+                    data["female_run"][age_cat][run] + 1
+                  ]
+                : findNextTiming(data["female_run"][age_cat])[
+                    data["female_run"][age_cat][run] + 2
+                  ],
+              run
+            )
+          );
     }
   }, [data, pushup, situp, run, age, gender]);
 
@@ -112,40 +193,81 @@ function App() {
             <label htmlFor={"elite-checkbox"}>Commando/Diver/Guards</label>
           </div>
           {/* Radio button for optimize */}
-          {station.map((option) => (
-            <div key={option}>
-              <input
-                type="radio"
-                name="current-station"
-                id={option}
-                value={option}
-                checked={option === stationOptimize}
-                onChange={(event) => {
-                  setStationOptimize(event.target.value);
-                }}
-              />
-              <label htmlFor={option}>{option}</label>
-            </div>
-          ))}
+          <div className="container">
+            {station.map((option) => (
+              <div key={option}>
+                <input
+                  type="radio"
+                  name="current-station"
+                  id={option}
+                  value={option}
+                  checked={option === stationOptimize}
+                  onChange={(event) => {
+                    setStationOptimize(event.target.value);
+                  }}
+                />
+                <label htmlFor={option}>{option}</label>
+              </div>
+            ))}
+          </div>
           {/* pushup */}
           <div className="container">
             <p>Pushup:</p>
             <StationInput name="pushup" type={pushup} setType={setPushup} />
             <p>{pushupScore}</p>
+            <p>+{toNextPushup} rep to next point</p>
           </div>
           {/* situp */}
           <div className="container">
             <p>Situp:</p>
             <StationInput name="situp" type={situp} setType={setSitup} />
             <p>{situpScore}</p>
+            <p>+{toNextSitup} rep to next point</p>
           </div>
           {/* run */}
           <div className="container">
             <p>2.4km Run:</p>
             <StationInput name="run" type={run} setType={setRun} />
             <p>{runScore}</p>
+            <p>-{toNextRun} secs to next point</p>
           </div>
           <Footer elite={elite} serviceStatus={serviceStatus} />
+          <div className="container">
+            <Card
+              age={age}
+              gender={gender}
+              elite={elite}
+              serviceStatus={serviceStatus}
+              stationOptimize={stationOptimize}
+              award="Gold"
+            />
+            <Card
+              age={age}
+              gender={gender}
+              elite={elite}
+              serviceStatus={serviceStatus}
+              stationOptimize={stationOptimize}
+              award="Silver"
+            />
+            {serviceStatus === "NSman" && (
+              <Card
+                age={age}
+                gender={gender}
+                elite={elite}
+                serviceStatus={serviceStatus}
+                stationOptimize={stationOptimize}
+                award="Pass with Incentive"
+              />
+            )}
+            <Card
+              age={age}
+              gender={gender}
+              elite={elite}
+              serviceStatus={serviceStatus}
+              stationOptimize={stationOptimize}
+              award="Pass"
+            />
+          </div>
         </ScoreContext.Provider>
       </DataContext.Provider>
     </>
