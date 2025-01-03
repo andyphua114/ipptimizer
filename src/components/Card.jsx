@@ -2,8 +2,7 @@ import React from "react";
 import { DataContext } from "../App";
 import { ScoreContext } from "../App";
 
-import { findNext } from "../utils/helper";
-import { findNextTiming } from "../utils/helper";
+import { findNextCard } from "../utils/helper";
 
 function Card({ age, gender, elite, serviceStatus, stationOptimize, award }) {
   const data = React.useContext(DataContext);
@@ -11,7 +10,8 @@ function Card({ age, gender, elite, serviceStatus, stationOptimize, award }) {
 
   const currentTotal = pushupScore + situpScore + runScore;
 
-  let nextRep;
+  let nextRep = "";
+  let requiredPoints;
 
   if (Object.keys(data).length === 7) {
     const age_cat = data["age_band"][age];
@@ -36,8 +36,6 @@ function Card({ age, gender, elite, serviceStatus, stationOptimize, award }) {
       currentPoints = currentTotal - situpScore;
     }
 
-    let requiredPoints;
-
     if (award === "Gold") {
       requiredPoints = gold - currentPoints;
     } else if (award === "Silver") {
@@ -48,27 +46,24 @@ function Card({ age, gender, elite, serviceStatus, stationOptimize, award }) {
       requiredPoints = pass_with_incentive - currentPoints;
     }
 
-    if (stationOptimize === "2.4km Run") {
-      nextRep = findNextTiming(data[dataOptimize][age_cat])[requiredPoints];
-      if (!nextRep) {
-        nextRep = findNextTiming(data[dataOptimize][age_cat])[
-          requiredPoints + 1
-        ];
-      }
+    if (requiredPoints <= 0) {
+      nextRep = Object.keys(data[dataOptimize][age_cat]).find(
+        (k) => data[dataOptimize][age_cat][k] === 1
+      );
     } else {
-      nextRep = findNext(data[dataOptimize][age_cat])[requiredPoints];
-      if (!nextRep) {
-        nextRep = findNext(data[dataOptimize][age_cat])[requiredPoints + 1];
-      }
+      nextRep = findNextCard(
+        data[dataOptimize][age_cat],
+        requiredPoints,
+        stationOptimize
+      );
     }
-
-    console.log(findNextTiming(data[dataOptimize][age_cat]));
-    console.log(nextRep ? nextRep : "Not able to...");
   }
 
   return (
     <>
-      <p>{nextRep ? nextRep : "Not able to..."}</p>
+      <p>
+        {award}: {nextRep}
+      </p>
     </>
   );
 }

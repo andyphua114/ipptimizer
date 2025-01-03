@@ -8,6 +8,7 @@ function Footer({ elite, serviceStatus }) {
   const gold = elite ? 90 : 85;
   const silver = 75;
 
+  const pass_with_incentive = 61;
   let pass = 61;
 
   if (serviceStatus === "NSman") {
@@ -24,7 +25,7 @@ function Footer({ elite, serviceStatus }) {
     award = "Gold";
   } else if (totalScore >= silver) {
     award = "Silver";
-  } else if (totalScore >= pass && serviceStatus === "NSman") {
+  } else if (totalScore >= pass_with_incentive && serviceStatus === "NSman") {
     award = "Pass with Incentive";
   } else if (totalScore >= pass) {
     award = "Pass";

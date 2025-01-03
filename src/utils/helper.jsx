@@ -1,6 +1,6 @@
-export function findNext(input) {
+export function findNext(input, current) {
   // Create a new object to store the results
-  const result = {};
+  let result = {};
 
   // Iterate through the input object
   for (const [key, value] of Object.entries(input)) {
@@ -11,10 +11,29 @@ export function findNext(input) {
       result[value] = key;
     }
   }
-  return result;
+
+  const values = Object.values(result);
+  const targetIndex = values.findIndex((element) => Number(element) > current);
+  return values[targetIndex];
 }
 
-export function findNextTiming(input) {
+export function findNextCard(input, current, stationOptimize) {
+  // Create a new object to store the results
+
+  const values = Object.values(input);
+  console.log(values);
+  if (stationOptimize === "2.4km Run") {
+    const targetIndex = values.findIndex(
+      (element) => Number(element) < current
+    );
+    return Object.keys(input)[targetIndex - 1];
+  }
+
+  const targetIndex = values.findIndex((element) => Number(element) > current);
+  return Object.keys(input)[targetIndex];
+}
+
+export function findNextTiming(input, current) {
   // Function to convert "minutes:seconds" into total seconds
   const timeToSeconds = (time) => {
     const [minutes, seconds] = time.split(":").map(Number);
@@ -33,7 +52,13 @@ export function findNextTiming(input) {
       result[value] = key; // Keep the original time format
     }
   }
-  return result;
+
+  const values = Object.values(result);
+  const targetIndex = values.findIndex(
+    (element) => timeToSeconds(element) < timeToSeconds(current)
+  );
+
+  return calculateTimeDifference(values[targetIndex - 1], values[targetIndex]);
 }
 
 // Function to calculate time difference in seconds

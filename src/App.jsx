@@ -89,73 +89,31 @@ function App() {
         ? data["male_pushup"][age_cat][pushup] === 25
           ? setToNextPushup(0)
           : setToNextPushup(
-              findNext(data["male_pushup"][age_cat])[
-                data["male_pushup"][age_cat][pushup] + 1
-              ]
-                ? findNext(data["male_pushup"][age_cat])[
-                    data["male_pushup"][age_cat][pushup] + 1
-                  ]
-                : findNext(data["male_pushup"][age_cat])[
-                    data["male_pushup"][age_cat][pushup] + 2
-                  ] - pushup
+              findNext(data["male_pushup"][age_cat], pushup) - pushup
             )
         : data["female_pushup"][age_cat][pushup] === 25
         ? setToNextPushup(0)
         : setToNextPushup(
-            findNext(data["female_pushup"][age_cat])[
-              data["female_pushup"][age_cat][pushup] + 1
-            ] - pushup
+            findNext(data["female_pushup"][age_cat], pushup) - pushup
           );
 
       gender === "Male"
         ? data["male_situp"][age_cat][situp] === 25
           ? setToNextSitup(0)
-          : setToNextSitup(
-              findNext(data["male_situp"][age_cat])[
-                data["male_situp"][age_cat][situp] + 1
-              ] - situp
-            )
+          : setToNextSitup(findNext(data["male_situp"][age_cat], situp) - situp)
         : data["female_situp"][age_cat][situp] === 25
         ? setToNextSitup(0)
         : setToNextSitup(
-            findNext(data["female_situp"][age_cat])[
-              data["female_situp"][age_cat][situp] + 1
-            ] - situp
+            findNext(data["female_situp"][age_cat], situp) - situp
           );
 
       gender === "Male"
         ? data["male_run"][age_cat][run] === 50
           ? setToNextRun(calculateTimeDifference("0:00", "0:00"))
-          : setToNextRun(
-              calculateTimeDifference(
-                findNextTiming(data["male_run"][age_cat])[
-                  data["male_run"][age_cat][run] + 1
-                ]
-                  ? findNextTiming(data["male_run"][age_cat])[
-                      data["male_run"][age_cat][run] + 1
-                    ]
-                  : findNextTiming(data["male_run"][age_cat])[
-                      data["male_run"][age_cat][run] + 2
-                    ],
-                run
-              )
-            )
+          : setToNextRun(findNextTiming(data["male_run"][age_cat], run))
         : data["female_run"][age_cat][run] === 50
         ? setToNextRun(calculateTimeDifference("0:00", "0:00"))
-        : setToNextRun(
-            calculateTimeDifference(
-              findNextTiming(data["female_run"][age_cat])[
-                data["female_run"][age_cat][run] + 1
-              ]
-                ? findNextTiming(data["female_run"][age_cat])[
-                    data["female_run"][age_cat][run] + 1
-                  ]
-                : findNextTiming(data["female_run"][age_cat])[
-                    data["female_run"][age_cat][run] + 2
-                  ],
-              run
-            )
-          );
+        : setToNextRun(findNextTiming(data["female_run"][age_cat], run));
     }
   }, [data, pushup, situp, run, age, gender]);
 
