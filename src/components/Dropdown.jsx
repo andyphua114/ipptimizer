@@ -1,9 +1,20 @@
-function Dropdown({ name, type, setType }) {
+function Dropdown({ name, type, setType, setGender, serviceStatus }) {
   function handleSelect(event, setType) {
-    setType(event.target.value);
+    const newType = event.target.value;
+    setType(newType);
+
+    if (name === "serviceStatus" && newType !== "Regular") {
+      setGender("Male");
+    }
   }
 
-  let data = ["Male", "Female"];
+  let data;
+
+  if (serviceStatus !== "Regular") {
+    data = ["Male"];
+  } else {
+    data = ["Male", "Female"];
+  }
 
   if (name === "serviceStatus") {
     data = ["NSF", "NSman", "Regular"];

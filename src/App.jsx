@@ -144,8 +144,14 @@ function App() {
                 name={"serviceStatus"}
                 type={serviceStatus}
                 setType={setServiceStatus}
+                setGender={setGender}
               />
-              <Dropdown name={"gender"} type={gender} setType={setGender} />
+              <Dropdown
+                name={"gender"}
+                type={gender}
+                setType={setGender}
+                serviceStatus={serviceStatus}
+              />
               <Dropdown name={"age"} type={age} setType={setAge} />
               {/* elite checkbox */}
               <input
