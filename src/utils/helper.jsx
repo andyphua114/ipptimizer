@@ -57,7 +57,7 @@ export function findNextTiming(input, current) {
     (element) => timeToSeconds(element) < timeToSeconds(current)
   );
 
-  return calculateTimeDifference(values[targetIndex - 1], values[targetIndex]);
+  return calculateTimeDifference(values[targetIndex], current);
 }
 
 // Function to calculate time difference in seconds
