@@ -1,12 +1,14 @@
 import React from "react";
 import { DataContext } from "../App";
 import { ScoreContext } from "../App";
+import { RepContext } from "../App";
 
 import { findNextCard } from "../utils/helper";
 
 function Card({ age, gender, elite, serviceStatus, stationOptimize, award }) {
   const data = React.useContext(DataContext);
   const { pushupScore, situpScore, runScore } = React.useContext(ScoreContext);
+  const { pushup, situp, run } = React.useContext(RepContext);
 
   const [nextRep, setNextRep] = React.useState("");
 
@@ -77,11 +79,33 @@ function Card({ age, gender, elite, serviceStatus, stationOptimize, award }) {
   ]);
 
   return (
-    <>
+    <div>
+      <p>{award}</p>
       <p>
-        {award}: {nextRep ? nextRep : "Not possible"}
+        Pushup:{" "}
+        {stationOptimize === "Pushup"
+          ? nextRep
+            ? nextRep
+            : "Not possible"
+          : pushup}
       </p>
-    </>
+      <p>
+        Situp:{" "}
+        {stationOptimize === "Situp"
+          ? nextRep
+            ? nextRep
+            : "Not possible"
+          : situp}
+      </p>
+      <p>
+        2.4km Run:{" "}
+        {stationOptimize === "2.4km Run"
+          ? nextRep
+            ? nextRep
+            : "Not possible"
+          : run}
+      </p>
+    </div>
   );
 }
 

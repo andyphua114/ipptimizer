@@ -12,6 +12,7 @@ import { calculateTimeDifference } from "./utils/helper";
 
 export const DataContext = React.createContext();
 export const ScoreContext = React.createContext();
+export const RepContext = React.createContext();
 
 function App() {
   const [pushup, setPushup] = React.useState(40);
@@ -125,107 +126,115 @@ function App() {
 
   const station = ["2.4km Run", "Pushup", "Situp"];
 
+  const rep = {
+    pushup,
+    situp,
+    run,
+  };
+
   return (
     <>
       <h1>IPPTimizer</h1>
       <p>Optmize your IPPT Scores</p>
       <DataContext.Provider value={data}>
         <ScoreContext.Provider value={score}>
-          <div>
-            <Dropdown
-              name={"serviceStatus"}
-              type={serviceStatus}
-              setType={setServiceStatus}
-            />
-            <Dropdown name={"gender"} type={gender} setType={setGender} />
-            <Dropdown name={"age"} type={age} setType={setAge} />
-            {/* elite checkbox */}
-            <input
-              type="checkbox"
-              id="elite-checkbox"
-              checked={elite}
-              onChange={(event) => {
-                setElite(event.target.checked);
-              }}
-            />
-            <label htmlFor={"elite-checkbox"}>Commando/Diver/Guards</label>
-          </div>
-          {/* Radio button for optimize */}
-          <div className="container">
-            {station.map((option) => (
-              <div key={option}>
-                <input
-                  type="radio"
-                  name="current-station"
-                  id={option}
-                  value={option}
-                  checked={option === stationOptimize}
-                  onChange={(event) => {
-                    setStationOptimize(event.target.value);
-                  }}
-                />
-                <label htmlFor={option}>{option}</label>
-              </div>
-            ))}
-          </div>
-          {/* pushup */}
-          <div className="container">
-            <p>Pushup:</p>
-            <StationInput name="pushup" type={pushup} setType={setPushup} />
-            <p>{pushupScore}</p>
-            <p>+{toNextPushup} rep to next point</p>
-          </div>
-          {/* situp */}
-          <div className="container">
-            <p>Situp:</p>
-            <StationInput name="situp" type={situp} setType={setSitup} />
-            <p>{situpScore}</p>
-            <p>+{toNextSitup} rep to next point</p>
-          </div>
-          {/* run */}
-          <div className="container">
-            <p>2.4km Run:</p>
-            <StationInput name="run" type={run} setType={setRun} />
-            <p>{runScore}</p>
-            <p>-{toNextRun} secs to next point</p>
-          </div>
-          <Footer elite={elite} serviceStatus={serviceStatus} />
-          <div className="container">
-            <Card
-              age={age}
-              gender={gender}
-              elite={elite}
-              serviceStatus={serviceStatus}
-              stationOptimize={stationOptimize}
-              award="Gold"
-            />
-            <Card
-              age={age}
-              gender={gender}
-              elite={elite}
-              serviceStatus={serviceStatus}
-              stationOptimize={stationOptimize}
-              award="Silver"
-            />
-            {serviceStatus === "NSman" && (
+          <RepContext.Provider value={rep}>
+            <div>
+              <Dropdown
+                name={"serviceStatus"}
+                type={serviceStatus}
+                setType={setServiceStatus}
+              />
+              <Dropdown name={"gender"} type={gender} setType={setGender} />
+              <Dropdown name={"age"} type={age} setType={setAge} />
+              {/* elite checkbox */}
+              <input
+                type="checkbox"
+                id="elite-checkbox"
+                checked={elite}
+                onChange={(event) => {
+                  setElite(event.target.checked);
+                }}
+              />
+              <label htmlFor={"elite-checkbox"}>Commando/Diver/Guards</label>
+            </div>
+            {/* Radio button for optimize */}
+            <div className="container">
+              {station.map((option) => (
+                <div key={option}>
+                  <input
+                    type="radio"
+                    name="current-station"
+                    id={option}
+                    value={option}
+                    checked={option === stationOptimize}
+                    onChange={(event) => {
+                      setStationOptimize(event.target.value);
+                    }}
+                  />
+                  <label htmlFor={option}>{option}</label>
+                </div>
+              ))}
+            </div>
+            {/* pushup */}
+            <div className="container">
+              <p>Pushup:</p>
+              <StationInput name="pushup" type={pushup} setType={setPushup} />
+              <p>{pushupScore}</p>
+              <p>+{toNextPushup} rep to next point</p>
+            </div>
+            {/* situp */}
+            <div className="container">
+              <p>Situp:</p>
+              <StationInput name="situp" type={situp} setType={setSitup} />
+              <p>{situpScore}</p>
+              <p>+{toNextSitup} rep to next point</p>
+            </div>
+            {/* run */}
+            <div className="container">
+              <p>2.4km Run:</p>
+              <StationInput name="run" type={run} setType={setRun} />
+              <p>{runScore}</p>
+              <p>-{toNextRun} secs to next point</p>
+            </div>
+            <Footer elite={elite} serviceStatus={serviceStatus} />
+            <div className="container">
               <Card
                 age={age}
                 gender={gender}
                 elite={elite}
                 serviceStatus={serviceStatus}
                 stationOptimize={stationOptimize}
-                award="Pass with Incentive"
+                award="Gold"
               />
-            )}
-            <Card
-              age={age}
-              gender={gender}
-              elite={elite}
-              serviceStatus={serviceStatus}
-              stationOptimize={stationOptimize}
-              award="Pass"
-            />
-          </div>
+              <Card
+                age={age}
+                gender={gender}
+                elite={elite}
+                serviceStatus={serviceStatus}
+                stationOptimize={stationOptimize}
+                award="Silver"
+              />
+              {serviceStatus === "NSman" && (
+                <Card
+                  age={age}
+                  gender={gender}
+                  elite={elite}
+                  serviceStatus={serviceStatus}
+                  stationOptimize={stationOptimize}
+                  award="Pass with Incentive"
+                />
+              )}
+              <Card
+                age={age}
+                gender={gender}
+                elite={elite}
+                serviceStatus={serviceStatus}
+                stationOptimize={stationOptimize}
+                award="Pass"
+              />
+            </div>
+          </RepContext.Provider>
         </ScoreContext.Provider>
       </DataContext.Provider>
     </>
