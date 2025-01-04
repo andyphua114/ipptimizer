@@ -17,12 +17,12 @@ function StationButton({ name, action, type, setType, children }) {
       } else if (action == "minus" && current !== "8:30") {
         const newTiming = runTimings[currentIndex - 1];
         setType(newTiming);
-      } else {
-        if (action === "add" && current < 60) {
-          setType((currentValue) => Number(currentValue) + 1);
-        } else if (action === "minus" && current > 1) {
-          setType((currentValue) => Number(currentValue) - 1);
-        }
+      }
+    } else {
+      if (action === "add" && current < 60) {
+        setType((currentValue) => Number(currentValue) + 1);
+      } else if (action === "minus" && current > 1) {
+        setType((currentValue) => Number(currentValue) - 1);
       }
     }
   }

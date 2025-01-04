@@ -135,11 +135,11 @@ function App() {
   return (
     <>
       <h1>IPPTimizer</h1>
-      <p>Optmize your IPPT Scores</p>
+      <p>Optimize your IPPT Scores</p>
       <DataContext.Provider value={data}>
         <ScoreContext.Provider value={score}>
           <RepContext.Provider value={rep}>
-            <div>
+            <div className="dropdown-container">
               <Dropdown
                 name={"serviceStatus"}
                 type={serviceStatus}
@@ -153,19 +153,19 @@ function App() {
                 serviceStatus={serviceStatus}
               />
               <Dropdown name={"age"} type={age} setType={setAge} />
-              {/* elite checkbox */}
-              <input
-                type="checkbox"
-                id="elite-checkbox"
-                checked={elite}
-                onChange={(event) => {
-                  setElite(event.target.checked);
-                }}
-              />
-              <label htmlFor={"elite-checkbox"}>Commando/Diver/Guards</label>
             </div>
+            {/* elite checkbox */}
+            <input
+              type="checkbox"
+              id="elite-checkbox"
+              checked={elite}
+              onChange={(event) => {
+                setElite(event.target.checked);
+              }}
+            />
+            <label htmlFor={"elite-checkbox"}>Commando/Diver/Guards</label>
             {/* Radio button for optimize */}
-            <div className="container">
+            <div className="station-container">
               {station.map((option) => (
                 <div key={option}>
                   <input
@@ -183,28 +183,28 @@ function App() {
               ))}
             </div>
             {/* pushup */}
-            <div className="container">
+            <div className="input-container">
               <p>Pushup:</p>
               <StationInput name="pushup" type={pushup} setType={setPushup} />
               <p>{pushupScore}</p>
               <p>+{toNextPushup} rep to next point</p>
             </div>
             {/* situp */}
-            <div className="container">
+            <div className="input-container">
               <p>Situp:</p>
               <StationInput name="situp" type={situp} setType={setSitup} />
               <p>{situpScore}</p>
               <p>+{toNextSitup} rep to next point</p>
             </div>
             {/* run */}
-            <div className="container">
+            <div className="input-container">
               <p>2.4km Run:</p>
               <StationInput name="run" type={run} setType={setRun} />
               <p>{runScore}</p>
               <p>-{toNextRun} secs to next point</p>
             </div>
             <Footer elite={elite} serviceStatus={serviceStatus} />
-            <div className="container">
+            <div className="card-container">
               <Card
                 age={age}
                 gender={gender}

@@ -6,9 +6,9 @@
 }
 
 .container {
-    display: flex;
-    align-items: center; /* Align vertically */
-    gap: 10px; /* Space between items */
+  display: flex;
+  align-items: center; /* Align vertically */
+  gap: 10px; /* Space between items */
 }
 
 .logo {
@@ -39,10 +39,52 @@
   }
 }
 
-.card {
+/* .card {
   padding: 2em;
-}
+} */
 
 .read-the-docs {
   color: #888;
+}
+
+.card-container {
+  display: flex;
+  justify-content: space-around; /* Space evenly between cards */
+  align-items: center; /* Align items vertically */
+  padding: 16px;
+  gap: 16px; /* Space between cards */
+}
+
+.dropdown-container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  padding: 16px;
+  max-width: 500px; /* Restrict container width */
+  margin: 0 auto; /* Center the container in the viewport */
+  gap: 12px; /* Smaller gap between dropdowns */
+}
+
+.station-container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  padding: 16px;
+  max-width: 500px; /* Restrict container width */
+  margin: 0 auto; /* Center the container in the viewport */
+  gap: 12px; /* Smaller gap between dropdowns */
+}
+
+.input-container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  max-width: 800px; /* Restrict container width */
+  margin: 0 auto; /* Center the container in the viewport */
+  gap: 12px; /* Smaller gap between dropdowns */
+}
+
+.dropdown {
+  display: flex;
+  flex-direction: column; /* Ensure label is above the dropdown */
 }

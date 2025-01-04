@@ -1,4 +1,5 @@
 import React from "react";
+import "./Card.css";
 import { DataContext } from "../App";
 import { ScoreContext } from "../App";
 import { RepContext } from "../App";
@@ -79,8 +80,10 @@ function Card({ age, gender, elite, serviceStatus, stationOptimize, award }) {
   ]);
 
   return (
-    <div>
-      <p>{award}</p>
+    <div className="card">
+      <p>
+        <strong>{award}</strong>
+      </p>
       <p>
         Pushup:{" "}
         {stationOptimize === "Pushup"
