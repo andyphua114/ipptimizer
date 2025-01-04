@@ -21,7 +21,6 @@ export function findNextCard(input, current, stationOptimize) {
   // Create a new object to store the results
 
   const values = Object.values(input);
-  console.log(values);
   if (stationOptimize === "2.4km Run") {
     const targetIndex = values.findIndex(
       (element) => Number(element) < current
@@ -29,7 +28,7 @@ export function findNextCard(input, current, stationOptimize) {
     return Object.keys(input)[targetIndex - 1];
   }
 
-  const targetIndex = values.findIndex((element) => Number(element) > current);
+  const targetIndex = values.findIndex((element) => Number(element) >= current);
   return Object.keys(input)[targetIndex];
 }
 
