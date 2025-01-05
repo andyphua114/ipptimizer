@@ -119,6 +119,7 @@ h1 {
   .container,
   .card-container,
   .footer-container,
+  .input-container,
   .station-container {
     flex-direction: column; /* Stack items vertically */
     gap: 8px; /* Adjust gaps for smaller screens */
