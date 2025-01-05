@@ -113,3 +113,14 @@ h1 {
 .row {
   display: contents; /* Allows rows to share the same grid structure */
 }
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .container,
+  .card-container,
+  .footer-container,
+  .station-container {
+    flex-direction: column; /* Stack items vertically */
+    gap: 8px; /* Adjust gaps for smaller screens */
+  }
+}
