@@ -1,9 +1,25 @@
 .card {
   border: 1px solid #ddd;
   border-radius: 8px;
-  padding: 16px;
+  padding: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   width: 200px; /* Adjust the width as needed */
   text-align: center;
-  margin: 8px; /* Space between cards */
+  margin: 0px; /* Space between cards */
+}
+
+.gold {
+  background-color: #ffd700;
+}
+
+.silver {
+  background-color: #c0c0c0;
+}
+
+.pass {
+  background-color: #ad6f3b;
+}
+
+.passwithincentive {
+  background-color: #a89f91;
 }

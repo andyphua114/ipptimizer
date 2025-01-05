@@ -79,8 +79,10 @@ function Card({ age, gender, elite, serviceStatus, stationOptimize, award }) {
     currentTotal,
   ]);
 
+  const awardClass = award.replace(/\s/g, "").toLowerCase();
+
   return (
-    <div className="card">
+    <div className={`card ${awardClass}`}>
       <p>
         <strong>{award}</strong>
       </p>

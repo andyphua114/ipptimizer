@@ -5,6 +5,10 @@
   text-align: center;
 }
 
+h1 {
+  margin: 1px;
+}
+
 .container {
   display: flex;
   align-items: center; /* Align vertically */
@@ -59,10 +63,21 @@
   display: flex;
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
-  padding: 16px;
+  padding: 12px;
   max-width: 500px; /* Restrict container width */
   margin: 0 auto; /* Center the container in the viewport */
   gap: 12px; /* Smaller gap between dropdowns */
+}
+
+.footer-container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  margin-left: 16px;
+  margin-right: 16px;
+  gap: 12px; /* Smaller gap between dropdowns */
+  /* background-color: #87ceeb; */
+  border-radius: 8px;
 }
 
 .station-container {
@@ -76,15 +91,25 @@
 }
 
 .input-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto; /* Adjust column widths as needed */
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
   max-width: 800px; /* Restrict container width */
   margin: 0 auto; /* Center the container in the viewport */
-  gap: 12px; /* Smaller gap between dropdowns */
+  gap: 2px 20px; /* Smaller gap between dropdowns */
 }
 
 .dropdown {
   display: flex;
   flex-direction: column; /* Ensure label is above the dropdown */
+}
+
+.header {
+  font-weight: bold; /* Optional: Make headers stand out */
+  text-align: center; /* Align headers in the center of each column */
+}
+
+.row {
+  display: contents; /* Allows rows to share the same grid structure */
 }

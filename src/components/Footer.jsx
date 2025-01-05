@@ -18,7 +18,11 @@ function Footer({ elite, serviceStatus }) {
   let award = "Fail";
 
   if (pushupScore === 0 || situpScore === 0 || runScore === 0) {
-    return <p>{"Fail"}</p>;
+    return (
+      <p>
+        <strong>{"Fail"}</strong>
+      </p>
+    );
   }
 
   if (totalScore >= gold) {
@@ -35,7 +39,9 @@ function Footer({ elite, serviceStatus }) {
 
   return (
     <p>
-      {award} {totalScore}
+      <strong>
+        {award}: {totalScore} points
+      </strong>
     </p>
   );
 }

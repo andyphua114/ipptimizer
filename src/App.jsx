@@ -166,6 +166,7 @@ function App() {
             <label htmlFor={"elite-checkbox"}>Commando/Diver/Guards</label>
             {/* Radio button for optimize */}
             <div className="station-container">
+              <p>Choose the station to optimize: </p>
               {station.map((option) => (
                 <div key={option}>
                   <input
@@ -184,26 +185,40 @@ function App() {
             </div>
             {/* pushup */}
             <div className="input-container">
-              <p>Pushup:</p>
-              <StationInput name="pushup" type={pushup} setType={setPushup} />
-              <p>{pushupScore}</p>
-              <p>+{toNextPushup} rep to next point</p>
+              <div className="header">Station</div>
+              <div className="header"></div>
+              <div className="header"></div>
+              <div className="header"></div>
+              <div className="header">Points</div>
+              <div className="header">Next Point</div>
+              <div className="row">
+                <p>Pushup:</p>
+                <StationInput name="pushup" type={pushup} setType={setPushup} />
+                <p>{pushupScore}</p>
+                <p>
+                  +{toNextPushup} {toNextPushup > 1 ? "reps" : "rep"}
+                </p>
+              </div>
+              {/* situp */}
+              <div className="row">
+                <p>Situp:</p>
+                <StationInput name="situp" type={situp} setType={setSitup} />
+                <p>{situpScore}</p>
+                <p>
+                  +{toNextSitup} {toNextSitup > 1 ? "reps" : "rep"}
+                </p>
+              </div>
+              {/* run */}
+              <div className="row">
+                <p>2.4km Run:</p>
+                <StationInput name="run" type={run} setType={setRun} />
+                <p>{runScore}</p>
+                <p>-{toNextRun} secs</p>
+              </div>
             </div>
-            {/* situp */}
-            <div className="input-container">
-              <p>Situp:</p>
-              <StationInput name="situp" type={situp} setType={setSitup} />
-              <p>{situpScore}</p>
-              <p>+{toNextSitup} rep to next point</p>
+            <div className="footer-container">
+              <Footer elite={elite} serviceStatus={serviceStatus} />
             </div>
-            {/* run */}
-            <div className="input-container">
-              <p>2.4km Run:</p>
-              <StationInput name="run" type={run} setType={setRun} />
-              <p>{runScore}</p>
-              <p>-{toNextRun} secs to next point</p>
-            </div>
-            <Footer elite={elite} serviceStatus={serviceStatus} />
             <div className="card-container">
               <Card
                 age={age}
