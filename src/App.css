@@ -122,5 +122,7 @@ h1 {
   .station-container {
     flex-direction: column; /* Stack items vertically */
     gap: 8px; /* Adjust gaps for smaller screens */
+    width: 100%;
+    max-width: 100%;
   }
 }
